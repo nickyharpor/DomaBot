@@ -1,0 +1,6 @@
+.venv
+.idea
+.env
+gibberish.py
+config_dev.py
+config_live.py
