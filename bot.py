@@ -2,6 +2,7 @@ from telethon import TelegramClient, events
 import os
 from dotenv import load_dotenv
 import polib
+from mongo import Mongo
 
 
 
@@ -24,7 +25,7 @@ for entry in polib.pofile('msg_' + config.language + '.po'):
     msg[entry.msgid] = entry.msgstr
 
 # Connect to database
-# db = Mongo(config.db_host, config.db_port, config.db_name)
+db = Mongo(config.db_host, config.db_port, config.db_name)
 
 # Initialize Telegram client
 if config.proxy:
@@ -38,4 +39,6 @@ else:
 @bot.on(events.CallbackQuery(data=b'main_menu'))
 async def start(event):
     if event.sender_id in config.admin_list:
+        pass
+    else:
         pass

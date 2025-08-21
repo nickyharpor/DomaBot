@@ -1,7 +1,7 @@
 [project]
 name = "domabot"
 version = "0.1.0"
-description = "Add your description here"
+description = "ُTelegram bot for Doma"
 requires-python = ">=3.12"
 dependencies = [
     "polib==1.2.0",
