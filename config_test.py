@@ -13,4 +13,7 @@ db_host='127.0.0.1'
 db_port=27017
 db_name='domabot'
 
+tg_bot_token=''
+doma_api_key=''
+
 admin_list=[]

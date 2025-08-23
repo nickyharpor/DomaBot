@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 import polib
 from mongo import Mongo
+import nav
 
 
 
@@ -39,6 +40,6 @@ else:
 @bot.on(events.CallbackQuery(data=b'main_menu'))
 async def start(event):
     if event.sender_id in config.admin_list:
-        pass
+        nav.get_start_admin_buttons(msg)
     else:
-        pass
+        nav.get_start_user_buttons(msg)
