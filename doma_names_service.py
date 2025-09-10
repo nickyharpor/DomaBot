@@ -123,3 +123,17 @@ class DomaNamesService:
 
         items_iter = self._iterate_all_names(take=take, **filters)
         return self._names_list(items_iter)
+
+    def get_name(self, name: str) -> Dict[str, Any]:
+        """
+        Get information about a specific tokenized (domain) name.
+
+        Parameters:
+        - name: Name (domain) to fetch information for.
+
+        Returns:
+        - NameModel dictionary as returned by the GraphQL API.
+        """
+        if not name:
+            raise ValueError("name must be a non-empty string")
+        return self.client.query_name(name)

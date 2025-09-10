@@ -1,0 +1,11 @@
+msgid "about"
+msgstr "About"
+
+msgid "manage_event_subscription"
+msgstr "Manage Event Subscription"
+
+msgid "get_recent_listing"
+msgstr "Get Recent Listing"
+
+msgid ""
+msgstr ""

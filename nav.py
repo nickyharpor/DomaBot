@@ -1,7 +1,11 @@
 from telethon import Button
 
 def get_start_user_buttons(msg):
-    return [[Button.inline(msg.get('manage_event_subscription'),
+    return [[Button.inline(msg.get('get_recent_listing'),
+                           b'get_recent_listing')],
+            [Button.inline(msg.get('manage_event_subscription'),
+                           b'manage_event_subscription')],
+            [Button.inline(msg.get('manage_event_subscription'),
                            b'manage_event_subscription')],
             [Button.inline(msg.get('about'),
                            b'about')]]

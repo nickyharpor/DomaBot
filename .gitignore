@@ -4,3 +4,5 @@
 gibberish.py
 config_dev.py
 config_live.py
+*.session
+*.session-journal
