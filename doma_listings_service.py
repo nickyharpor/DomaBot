@@ -38,8 +38,8 @@ class DomaListingsService:
     def get_listings(
         self,
         *,
-        skip: Optional[float] = None,
-        take: Optional[float] = None,
+        skip: Optional[int] = None,
+        take: Optional[int] = None,
         tlds: Optional[List[str]] = None,
         created_since: Optional[str] = None,
         sld: Optional[str] = None,

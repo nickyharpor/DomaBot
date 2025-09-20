@@ -6,6 +6,7 @@ from mongo import Mongo
 import nav
 from tg_users_service import TelegramUserManager
 from doma_listings_service import DomaListingsService
+from doma_offers_service import DomaOffersService
 from caller_graphql import DomaGraphQLClient
 
 
@@ -63,7 +64,26 @@ async def manage_event_subscription(event):
 @bot.on(events.CallbackQuery(pattern=b'get_recent_listing'))
 async def get_recent_listing(event):
     dls = DomaListingsService(dgc, api_key=config.doma_api_key)
-    await event.respond(str(dls.get_listings()))
+    response_text = 'Latest domains listed:\n'
+    listings = dls.get_listings()
+    for item in listings.get('items', []):
+        price = int(item.get('price', 0))
+        symbol = item.get('currency', {}).get('symbol', '???')
+        decimals = item.get('currency', {}).get('decimals', 0)
+        name = item.get('name', '???.???')
+        if decimals > 0:
+            price = round(price / decimals, 4)
+        response_text += f'🆕 {name} ({price} {symbol})\n'
+    await event.respond(response_text)
+    raise events.StopPropagation
+
+
+@bot.on(events.CallbackQuery(pattern=b'get_recent_offers:.*'))
+async def get_recent_offers(event):
+    token_id = event.data.decode().split(':')[1]
+    dos = DomaOffersService(dgc, api_key=config.doma_api_key)
+    print(str(dos.get_offers(token_id=token_id)))
+    await event.respond(str('X'))
     raise events.StopPropagation
 
 

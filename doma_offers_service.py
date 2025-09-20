@@ -39,8 +39,8 @@ class DomaOffersService:
         *,
         token_id: Optional[str] = None,
         offered_by: Optional[List[str]] = None,
-        skip: Optional[float] = None,
-        take: Optional[float] = None,
+        skip: Optional[int] = None,
+        take: Optional[int] = None,
         status: Optional[str] = None,
         sort_order: Optional[str] = None,
     ) -> Dict[str, Any]:

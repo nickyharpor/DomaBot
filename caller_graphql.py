@@ -45,9 +45,9 @@ class DomaGraphQLClient:
     ):
         self.endpoint = endpoint
         self.headers = headers or {}
-        if api_key and "Authorization" not in self.headers and "X-API-Key" not in self.headers and "x-api-key" not in self.headers:
+        if api_key and "Api-Key" not in self.headers:
             # Add API key header if caller didn't already provide auth headers
-            self.headers["X-API-Key"] = api_key
+            self.headers["Api-Key"] = api_key
         self.timeout = timeout
 
     def _execute(self, query: str, variables: t.Optional[dict] = None, operation_name: t.Optional[str] = None) -> dict:
@@ -61,7 +61,6 @@ class DomaGraphQLClient:
             "Accept": "application/json",
         }
         headers.update(self.headers or {})
-
         req = request.Request(self.endpoint, data=body, headers=headers, method="POST")
         try:
             with request.urlopen(req, timeout=self.timeout) as resp:
@@ -659,16 +658,16 @@ class DomaGraphQLClient:
     def query_name_activities(
         self,
         name: str,
-        skip: t.Optional[float] = None,
-        take: t.Optional[float] = None,
+        skip: t.Optional[int] = None,
+        take: t.Optional[int] = None,
         type: t.Optional[str] = None,
         sortOrder: t.Optional[str] = None,
     ) -> dict:
         query = """
         query NameActivities(
           $name: String!
-          $skip: Float
-          $take: Float
+          $skip: Int
+          $take: Int
           $type: NameActivityType
           $sortOrder: SortOrderType
         ) {
@@ -731,16 +730,16 @@ class DomaGraphQLClient:
     def query_token_activities(
         self,
         tokenId: str,
-        skip: t.Optional[float] = None,
-        take: t.Optional[float] = None,
+        skip: t.Optional[int] = None,
+        take: t.Optional[int] = None,
         type: t.Optional[str] = None,
         sortOrder: t.Optional[str] = None,
     ) -> dict:
         query = """
         query TokenActivities(
           $tokenId: String!
-          $skip: Float
-          $take: Float
+          $skip: Int
+          $take: Int
           $type: TokenActivityType
           $sortOrder: SortOrderType
         ) {
@@ -865,8 +864,8 @@ class DomaGraphQLClient:
     # 8) listings
     def query_listings(
         self,
-        skip: t.Optional[float] = None,
-        take: t.Optional[float] = None,
+        skip: t.Optional[int] = None,
+        take: t.Optional[int] = None,
         tlds: t.Optional[t.List[str]] = None,
         createdSince: t.Optional[str] = None,
         sld: t.Optional[str] = None,
@@ -875,8 +874,8 @@ class DomaGraphQLClient:
     ) -> dict:
         query = """
         query Listings(
-          $skip: Float
-          $take: Float
+          $skip: Int
+          $take: Int
           $tlds: [String!]
           $createdSince: DateTime
           $sld: String
@@ -950,8 +949,8 @@ class DomaGraphQLClient:
         self,
         tokenId: t.Optional[str] = None,
         offeredBy: t.Optional[t.List[str]] = None,
-        skip: t.Optional[float] = None,
-        take: t.Optional[float] = None,
+        skip: t.Optional[int] = None,
+        take: t.Optional[int] = None,
         status: t.Optional[str] = None,
         sortOrder: t.Optional[str] = None,
     ) -> dict:
@@ -959,8 +958,8 @@ class DomaGraphQLClient:
         query Offers(
           $tokenId: String
           $offeredBy: [AddressCAIP10!]
-          $skip: Float
-          $take: Float
+          $skip: Int
+          $take: Int
           $status: OfferStatus
           $sortOrder: SortOrderType
         ) {

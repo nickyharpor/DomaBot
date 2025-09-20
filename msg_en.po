@@ -7,5 +7,8 @@ msgstr "Manage Event Subscription"
 msgid "get_recent_listing"
 msgstr "Get Recent Listing"
 
+msgid "get_recent_offers"
+msgstr "Get Recent Offers"
+
 msgid ""
 msgstr ""
