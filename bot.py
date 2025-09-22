@@ -88,6 +88,14 @@ async def page_domain(event):
     raise events.StopPropagation
 
 
+@bot.on(events.CallbackQuery(pattern=b'info_domain:.*'))
+async def page_domain(event):
+    domain = event.data.decode().split(':')[1]
+    dns = DomaNamesService(dgc, api_key=config.doma_api_key)
+    await event.respond('test...')
+    raise events.StopPropagation
+
+
 @bot.on(events.CallbackQuery(pattern=b'get_recent_listing'))
 async def get_recent_listing(event):
     dls = DomaListingsService(dgc, api_key=config.doma_api_key)
