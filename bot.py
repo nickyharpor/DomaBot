@@ -5,6 +5,7 @@ import polib
 from mongo import Mongo
 import nav
 from tg_users_service import TelegramUserManager
+from doma_names_service import DomaNamesService
 from doma_listings_service import DomaListingsService
 from doma_offers_service import DomaOffersService
 from caller_graphql import DomaGraphQLClient
@@ -53,37 +54,72 @@ async def start(event):
 
 @bot.on(events.CallbackQuery(pattern=b'about'))
 async def about(event):
+    text = f'{msg.get("about_1")}\n\n{msg.get("about_2")}'
+    buttons = nav.get_main_menu_button(msg)
+    await event.respond(text, buttons=buttons)
     raise events.StopPropagation
 
 
-@bot.on(events.CallbackQuery(pattern=b'manage_event_subscription'))
-async def manage_event_subscription(event):
+@bot.on(events.CallbackQuery(pattern=b'search_domain'))
+async def search_domain(event):
+    dns = DomaNamesService(dgc, api_key=config.doma_api_key)
+    ask_for_filter = f'{msg.get('enter_a_filter_string_1')}. {msg.get('enter_a_filter_string_2')}.'
+    async with bot.conversation(event.sender_id) as conv:
+        await conv.send_message(ask_for_filter)
+        response_filter = await conv.get_response()
+        the_filter = response_filter.text
+        await conv.send_message(f'{msg.get('searching')} `{the_filter}`...')
+        domains = dns.get_names_by_name(name_filter=the_filter)
+        text, buttons = nav.list_domains(msg, domains, the_filter)
+        await conv.send_message(text, buttons=buttons)
+    raise events.StopPropagation
+
+
+@bot.on(events.CallbackQuery(pattern=b'page_domain:.*'))
+async def page_domain(event):
+    search_word = event.data.decode().split(':')[1]
+    page = int(event.data.decode().split(':')[2])
+    dns = DomaNamesService(dgc, api_key=config.doma_api_key)
+    the_filter = search_word
+    await event.respond(f'{msg.get('searching')} `{the_filter}`...')
+    domains = dns.get_names_by_name(name_filter=the_filter)
+    text, buttons = nav.list_domains(msg, domains, the_filter, page=page)
+    await event.respond(text, buttons=buttons)
     raise events.StopPropagation
 
 
 @bot.on(events.CallbackQuery(pattern=b'get_recent_listing'))
 async def get_recent_listing(event):
     dls = DomaListingsService(dgc, api_key=config.doma_api_key)
-    response_text = 'Latest domains listed:\n'
-    listings = dls.get_listings()
-    for item in listings.get('items', []):
-        price = int(item.get('price', 0))
-        symbol = item.get('currency', {}).get('symbol', '???')
-        decimals = item.get('currency', {}).get('decimals', 0)
-        name = item.get('name', '???.???')
-        if decimals > 0:
-            price = round(price / decimals, 4)
-        response_text += f'🆕 {name} ({price} {symbol})\n'
-    await event.respond(response_text)
+    response_text = f'{msg.get("last_week_domains")}:\n\n'
+    text, buttons = nav.list_listings(msg, dls, text=response_text)
+    await event.respond(text, buttons=buttons)
     raise events.StopPropagation
 
 
 @bot.on(events.CallbackQuery(pattern=b'get_recent_offers:.*'))
 async def get_recent_offers(event):
-    token_id = event.data.decode().split(':')[1]
-    dos = DomaOffersService(dgc, api_key=config.doma_api_key)
-    print(str(dos.get_offers(token_id=token_id)))
-    await event.respond(str('X'))
+    name = event.data.decode().split(':')[1]
+    dns = DomaNamesService(dgc, api_key=config.doma_api_key)
+    name_info = dns.get_name(name)
+    tokens = name_info.get('tokens', [])
+    if len(tokens) > 0:
+        token_id = tokens[0].get('tokenId', '')
+        dos = DomaOffersService(dgc, api_key=config.doma_api_key)
+        x = dos.get_offers(token_id=token_id)
+        counter = 0
+        response_text = f'{len(x.get('items', []))} offers so far\n\n'
+        for item in x.get('items', []):
+            price = int(item.get('price', 0))
+            symbol = item.get('currency', {}).get('symbol', '???')
+            decimals = int(item.get('currency', {}).get('decimals', '0'))
+            counter += 1
+            if round(price / (10 ^ decimals)) > 10 ^ 12:
+                pretty_price = round(price / (10 ^ decimals))
+            else:
+                pretty_price = round(price / (10 ^ decimals), 4)
+            response_text += f'#{counter}: {pretty_price} {symbol}\n'
+        await event.respond(response_text)
     raise events.StopPropagation
 
 

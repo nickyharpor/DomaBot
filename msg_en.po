@@ -1,14 +1,53 @@
 msgid "about"
 msgstr "About"
 
-msgid "manage_event_subscription"
-msgstr "Manage Event Subscription"
+msgid "about_1"
+msgstr "DomaBot (Testnet) is created for DomainFi Challenge by Nicky Harpor"
+
+msgid "about_2"
+msgstr "View submission at https://dorahacks.io/buidl/32851"
+
+msgid "search_domain"
+msgstr "Search for a Domain"
 
 msgid "get_recent_listing"
 msgstr "Get Recent Listing"
 
 msgid "get_recent_offers"
 msgstr "Get Recent Offers"
+
+msgid "main_menu"
+msgstr "Main Menu"
+
+msgid "last_week_domains"
+msgstr "Domains listed in the last week"
+
+msgid "enter_a_filter_string_1"
+msgstr "Enter a filter string to search"
+
+msgid "enter_a_filter_string_2"
+msgstr "For example, `doma` will find `doma.com` and `mydoma.ai` and every other domain with `doma` in it"
+
+msgid "list_domains_text"
+msgstr "domains found for"
+
+msgid "next"
+msgstr "Next"
+
+msgid "previous"
+msgstr "Previous"
+
+msgid "last"
+msgstr "Last"
+
+msgid "first"
+msgstr "First"
+
+msgid "from"
+msgstr "from"
+
+msgid "searching"
+msgstr "Searching for"
 
 msgid ""
 msgstr ""
