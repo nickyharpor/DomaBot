@@ -92,7 +92,8 @@ async def page_domain(event):
 async def page_domain(event):
     domain = event.data.decode().split(':')[1]
     dns = DomaNamesService(dgc, api_key=config.doma_api_key)
-    await event.respond('testing...')
+    domain_info = dns.get_name(domain)
+    await event.respond(str(domain_info))
     raise events.StopPropagation
 
 
