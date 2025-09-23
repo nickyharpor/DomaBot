@@ -36,3 +36,19 @@ class Mongo:
 
     def delete(self, collection, query):
         self.db[collection].delete_many(query)
+
+    def get_next_sequence_value(self, sequence_name):
+        """
+        Atomically increments the counter and returns the new value.
+        """
+        try:
+            sequence_document = self.db.counters.find_one_and_update(
+                {"_id": sequence_name},
+                {"$inc": {"seq": 1}},
+                return_document=True,
+                upsert=True
+            )
+            return sequence_document['seq']
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return None

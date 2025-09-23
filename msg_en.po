@@ -8,13 +8,46 @@ msgid "about_2"
 msgstr "View submission at https://dorahacks.io/buidl/32851"
 
 msgid "search_domain"
-msgstr "Search for a Domain"
+msgstr "Search for a Domain by Keyword"
+
+msgid "find_domains_by_owner"
+msgstr "Find Domains by Owner"
 
 msgid "get_recent_listing"
 msgstr "Get Recent Listing"
 
-msgid "get_recent_offers"
-msgstr "Get Recent Offers"
+msgid "manage_subscription"
+msgstr "Manage Subscription"
+
+msgid "settings"
+msgstr "Settings"
+
+msgid "change_language"
+msgstr "Change Language"
+
+msgid "change_language_1"
+msgstr "Select a language"
+
+msgid "change_language_2"
+msgstr "Your language changed"
+
+msgid "english"
+msgstr "English"
+
+msgid "spanish"
+msgstr "Spanish"
+
+msgid "french"
+msgstr "French"
+
+msgid "portuguese"
+msgstr "Portuguese"
+
+msgid "russian"
+msgstr "Russian"
+
+msgid "arabic"
+msgstr "Arabic"
 
 msgid "main_menu"
 msgstr "Main Menu"
@@ -28,8 +61,14 @@ msgstr "Enter a filter string to search"
 msgid "enter_a_filter_string_2"
 msgstr "For example, `doma` will find `doma.com` and `mydoma.ai` and every other domain with `doma` in it"
 
+msgid "enter_a_caip10_address_1"
+msgstr "Enter the owner wallet address in CAIP-10 format"
+
+msgid "enter_a_caip10_address_2"
+msgstr "For example, for Ethereum Mainnet `eip155:1:0xab16a96D359eC26a11e2C2b3d8f8B8942d5Bfcdb` is an address in CAIP-10 format"
+
 msgid "list_domains_text"
-msgstr "domains found for"
+msgstr "domains found"
 
 msgid "next"
 msgstr "Next"

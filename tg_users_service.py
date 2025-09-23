@@ -5,12 +5,19 @@ class TelegramUserManager:
         self.mongo = mongo
         self.collection = collection
 
-    def save_user(self, user_id: int, username: str = None, first_name: str = None, last_name: str = None):
+    def save_user(self,
+                  user_id: int,
+                  language: str = 'en',
+                  username: str = None,
+                  first_name: str = None,
+                  last_name: str = None):
         """Save a new user to MongoDB if not already existing."""
         existing = self.mongo.find(self.collection, {"user_id": user_id})
-        if not existing:
+        existing_list = existing.to_list()
+        if len(existing_list) == 0:
             user_data = {
                 "user_id": user_id,
+                "language": language,
                 "username": username,
                 "first_name": first_name,
                 "last_name": last_name,
@@ -21,7 +28,12 @@ class TelegramUserManager:
 
     def get_user(self, user_id: int):
         """Retrieve user info from MongoDB."""
-        return self.mongo.find(self.collection, {"user_id": user_id})
+        user_cursor = self.mongo.find(self.collection, {"user_id": user_id})
+        user_list = user_cursor.to_list()
+        if len(user_list) == 0:
+            return None
+        else:
+            return user_list[0]
 
     def update_user(self, user_id: int, update_data: dict):
         """Update user info in MongoDB."""

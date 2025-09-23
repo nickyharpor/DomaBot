@@ -4,15 +4,33 @@ from datetime import datetime, timedelta
 def get_start_user_buttons(msg):
     return [[Button.inline(msg.get('get_recent_listing'),
                            b'get_recent_listing')],
-            [Button.inline(msg.get('get_recent_offers'),
-                           b'get_recent_offers')],
+            [Button.inline(msg.get('manage_subscription'),
+                           b'manage_subscription')],
             [Button.inline(msg.get('search_domain'),
                            b'search_domain')],
+            [Button.inline(msg.get('find_domains_by_owner'),
+                           b'find_domains_by_owner')],
+            [Button.inline(msg.get('settings'),
+                           b'settings')],
             [Button.inline(msg.get('about'),
                            b'about')]]
 
 def get_start_admin_buttons(msg):
     return get_start_user_buttons(msg)
+
+def get_language_buttons(msg):
+    return [[Button.inline(f'🇬🇧 {msg.get("english")}',
+                           b'language:en')],
+            [Button.inline(f'🇪🇸 {msg.get("spanish")}',
+                           b'language:es')],
+            [Button.inline(f'🇫🇷 {msg.get("french")}',
+                           b'language:fr')],
+            [Button.inline(f'🇵🇹 {msg.get("portuguese")}',
+                           b'language:pt')],
+            [Button.inline(f'🇷🇺 {msg.get("russian")}',
+                           b'language:ru')],
+            [Button.inline(f'🇸🇦 {msg.get("arabic")}',
+                           b'language:ar')]]
 
 def navigate(msg, current_page=1, total_pages=1, data_prefix=None, delimiter=':',
              mode='a'):
@@ -57,7 +75,7 @@ def get_clear_button():
     return Button.clear()
 
 def list_domains(msg, domain_list, text, page=1, nav=None,
-               prefix='get_recent_offers', list_prefix='page_domain',
+               prefix='info_domain', list_prefix='page_domain',
                delimiter=':'):
     keyboard = []
     domain_list.sort()
@@ -84,7 +102,7 @@ def list_domains(msg, domain_list, text, page=1, nav=None,
                        after=nav,
                        delimiter=delimiter)
 
-    msg_text = f'{len(domain_list)} {msg.get("list_domains_text")} `{text}`:'
+    msg_text = f'{len(domain_list)} {msg.get("list_domains_text")}:'
 
     return msg_text, buttons
 
