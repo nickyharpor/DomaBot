@@ -74,6 +74,23 @@ def get_main_menu_button(msg):
 def get_clear_button():
     return Button.clear()
 
+def info_domain(msg, d):
+    response_text = f'''{msg.get("domain")}: `{d.get("name")}`
+{msg.get("chain")}: `{d.get("tokens", [{}])[0].get("chain", {}).get("name")}`
+{msg.get("chain")} {msg.get("id")}: `{d.get("tokens", [{}])[0].get("networkId")}`
+{msg.get("owner")}: `{d.get("tokens", [{}])[0].get("ownerAddress")}`
+{msg.get("tokenized_at")}: `{d.get("tokenizedAt")}`
+{msg.get("expires_at")}: `{d.get("expiresAt")}`
+{msg.get("claimed_by")}: `{d.get("claimedBy")}`'''
+    explorer_button = Button.url(msg.get('view_on_explorer'), d.get("tokens", [{}])[0].get('explorerUrl'))
+    recent_activities_button = Button.inline(msg.get('view_recent_activities'),
+                                             str.encode(f'get_recent_activities:{d.get("name")}'))
+    subscribe_button = Button.inline(msg.get('subscribe'),
+                                     str.encode(f'subscribe:{d.get("name")}'))
+    main_menu_button = get_main_menu_button(msg)[0]
+    return response_text, [[explorer_button, recent_activities_button],
+                           [subscribe_button, main_menu_button]]
+
 def list_domains(msg, domain_list, text, page=1, nav=None,
                prefix='info_domain', list_prefix='page_domain',
                delimiter=':'):

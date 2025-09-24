@@ -88,5 +88,35 @@ msgstr "from"
 msgid "searching"
 msgstr "Searching for"
 
+msgid "view_on_explorer"
+msgstr "View on Explorer"
+
+msgid "view_recent_activities"
+msgstr "View Recent Activities"
+
+msgid "subscribe"
+msgstr "Subscribe"
+
+msgid "domain"
+msgstr "Domain"
+
+msgid "chain"
+msgstr "Chain"
+
+msgid "id"
+msgstr "ID"
+
+msgid "owner"
+msgstr "Owner"
+
+msgid "tokenized_at"
+msgstr "Tokenized at"
+
+msgid "expires_at"
+msgstr "Expires at"
+
+msgid "claimed_by"
+msgstr "Claimed by"
+
 msgid ""
 msgstr ""

@@ -40,7 +40,7 @@ class DomaNameActivitiesService:
         *,
         skip: Optional[float] = None,
         take: Optional[float] = None,
-        type: Optional[str] = None,
+        _type: Optional[str] = None,
         sort_order: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
@@ -50,7 +50,7 @@ class DomaNameActivitiesService:
         - name: Name (domain) to query activities for. Required.
         - skip: Number of records to skip for pagination.
         - take: Number of records to return per page (max 100).
-        - type: Optional activity type filter (NameActivityType).
+        - _type: Optional activity type filter (NameActivityType).
         - sort_order: Optional sort order (SortOrderType: DESC or ASC).
 
         Returns:
@@ -62,6 +62,6 @@ class DomaNameActivitiesService:
             name=name,
             skip=skip,
             take=take,
-            type=type,
+            type=_type,
             sortOrder=sort_order,
         )

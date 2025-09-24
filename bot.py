@@ -183,8 +183,9 @@ async def page_owner(event):
 async def page_domain(event):
     domain = event.data.decode().split(':')[1]
     dns = DomaNamesService(dgc, api_key=config.doma_api_key)
-    domain_info = dns.get_name(domain)
-    await event.respond(str(domain_info))
+    d = dns.get_name(domain)
+    response_text, buttons = nav.info_domain(msg, d)
+    await event.respond(response_text, buttons=buttons)
     raise events.StopPropagation
 
 
@@ -220,6 +221,23 @@ async def get_recent_offers(event):
                 pretty_price = round(price / (10 ^ decimals), 4)
             response_text += f'#{counter}: {pretty_price} {symbol}\n'
         await event.respond(response_text)
+    raise events.StopPropagation
+
+
+@bot.on(events.CallbackQuery(pattern=b'get_recent_activities:.*'))
+async def get_recent_activities(event):
+    name = event.data.decode().split(':')[1]
+    dns = DomaNamesService(dgc, api_key=config.doma_api_key)
+    # TODO
+    await event.respond('get_recent_activities:.* called')
+    raise events.StopPropagation
+
+
+@bot.on(events.CallbackQuery(pattern=b'subscribe:.*'))
+async def subscribe(event):
+    name = event.data.decode().split(':')[1]
+    # TODO
+    await event.respond('subscribe:.* called')
     raise events.StopPropagation
 
 
