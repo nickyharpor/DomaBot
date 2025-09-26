@@ -1,8 +1,7 @@
 from __future__ import annotations
-
 from typing import Optional, Dict, Any
-
 from caller_graphql import DomaGraphQLClient, DEFAULT_ENDPOINT
+import re
 
 __all__ = ["DomaNameActivitiesService"]
 
@@ -38,8 +37,8 @@ class DomaNameActivitiesService:
         self,
         name: str,
         *,
-        skip: Optional[float] = None,
-        take: Optional[float] = None,
+        skip: Optional[int] = None,
+        take: Optional[int] = None,
         _type: Optional[str] = None,
         sort_order: Optional[str] = None,
     ) -> Dict[str, Any]:
@@ -65,3 +64,26 @@ class DomaNameActivitiesService:
             type=_type,
             sortOrder=sort_order,
         )
+
+    @staticmethod
+    def space_before_capitals(text):
+        """
+        Adds a space before any capital letter in a string, except for the first letter.
+
+        Args:
+            text (str): The input string (e.g., "NameClaimedEntity").
+
+        Returns:
+            str: The string with spaces added (e.g., "Name Claimed Entity").
+        """
+        if not text:
+            return text
+
+        # The regex finds:
+        # 1. A lowercase letter ([a-z])
+        # 2. Followed by a capital letter ([A-Z])
+        # It replaces this match with:
+        # The lowercase letter, a space (' '), and the capital letter.
+        # The ( ) creates a capture group for the letters, and \1 and \2
+        # reference those groups.
+        return re.sub(r'([a-z])([A-Z])', r'\1 \2', text)

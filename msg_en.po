@@ -8,7 +8,7 @@ msgid "about_2"
 msgstr "View submission at https://dorahacks.io/buidl/32851"
 
 msgid "search_domain"
-msgstr "Search for a Domain by Keyword"
+msgstr "Find Domains by Keyword"
 
 msgid "find_domains_by_owner"
 msgstr "Find Domains by Owner"
@@ -53,7 +53,7 @@ msgid "main_menu"
 msgstr "Main Menu"
 
 msgid "last_week_domains"
-msgstr "Domains listed in the last week"
+msgstr "Domains listed recently"
 
 msgid "enter_a_filter_string_1"
 msgstr "Enter a filter string to search"
@@ -117,6 +117,27 @@ msgstr "Expires at"
 
 msgid "claimed_by"
 msgstr "Claimed by"
+
+msgid "event"
+msgstr "Event"
+
+msgid "status"
+msgstr "Status"
+
+msgid "tx_hash"
+msgstr "Transaction Hash"
+
+msgid "event_time"
+msgstr "Event Time"
+
+msgid "recent_activities"
+msgstr "Recent activities"
+
+msgid "sub_added"
+msgstr "Domain name added to your subscription list"
+
+msgid "sub_already_existed"
+msgstr "Domain name is already in your subscription list"
 
 msgid ""
 msgstr ""

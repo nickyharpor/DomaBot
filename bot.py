@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from telethon import TelegramClient, events
 import os
 from dotenv import load_dotenv
@@ -7,6 +9,7 @@ from pymongo.errors import OperationFailure
 import nav
 from tg_users_service import TelegramUserManager
 from doma_names_service import DomaNamesService
+from doma_name_activities_service import DomaNameActivitiesService
 from doma_listings_service import DomaListingsService
 from doma_offers_service import DomaOffersService
 from caller_graphql import DomaGraphQLClient
@@ -74,8 +77,9 @@ async def about(event):
 
 @bot.on(events.CallbackQuery(pattern=b'settings'))
 async def settings(event):
-    text = f'{msg.get("about_1")}\n\n{msg.get("about_2")}'
-    buttons = nav.get_main_menu_button(msg)
+    text = f'{msg.get("change_language_1")}:'
+    buttons = nav.get_language_buttons(msg)
+    buttons.append(nav.get_main_menu_button(msg))
     await event.respond(text, buttons=buttons)
     raise events.StopPropagation
 
@@ -227,17 +231,29 @@ async def get_recent_offers(event):
 @bot.on(events.CallbackQuery(pattern=b'get_recent_activities:.*'))
 async def get_recent_activities(event):
     name = event.data.decode().split(':')[1]
-    dns = DomaNamesService(dgc, api_key=config.doma_api_key)
-    # TODO
-    await event.respond('get_recent_activities:.* called')
+    dnas = DomaNameActivitiesService(dgc, api_key=config.doma_api_key)
+    na = dnas.get_name_activities(name)
+    items_list = na.get('items', [])
+    response_text = f'{msg.get("recent_activities")}:\n\n'
+    for item in items_list:
+        response_text += (f'{msg.get("event")}: '
+                          f'`{DomaNameActivitiesService.space_before_capitals(item.get("__typename"))}`\n'
+                          f'{msg.get("status")}: `{item.get("type")}`\n'
+                          f'{msg.get("tx_hash")}: `{item.get("txHash")}`\n'
+                          f'{msg.get("event_time")}: `{item.get("createdAt")}`\n\n')
+    await event.respond(response_text)
     raise events.StopPropagation
 
 
 @bot.on(events.CallbackQuery(pattern=b'subscribe:.*'))
 async def subscribe(event):
     name = event.data.decode().split(':')[1]
-    # TODO
-    await event.respond('subscribe:.* called')
+    sub_list = tum.list_subscriptions(event.sender_id)
+    if name not in sub_list:
+        tum.add_subscription(event.sender_id, name)
+        await event.respond(f'{msg.get("sub_added")}.')
+    else:
+        await event.respond(f'{msg.get("sub_already_existed")}!')
     raise events.StopPropagation
 
 

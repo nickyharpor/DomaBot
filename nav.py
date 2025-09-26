@@ -4,12 +4,12 @@ from datetime import datetime, timedelta
 def get_start_user_buttons(msg):
     return [[Button.inline(msg.get('get_recent_listing'),
                            b'get_recent_listing')],
-            [Button.inline(msg.get('manage_subscription'),
-                           b'manage_subscription')],
             [Button.inline(msg.get('search_domain'),
                            b'search_domain')],
             [Button.inline(msg.get('find_domains_by_owner'),
                            b'find_domains_by_owner')],
+            [Button.inline(msg.get('manage_subscription'),
+                           b'manage_subscription')],
             [Button.inline(msg.get('settings'),
                            b'settings')],
             [Button.inline(msg.get('about'),
@@ -137,10 +137,10 @@ def list_listings(msg, dls, text=None, page=1, nav=None,
         symbol = item.get('currency', {}).get('symbol', '???')
         decimals = int(item.get('currency', {}).get('decimals', '0'))
         name = item.get('name', '???.???')
-        if round(price/(10^decimals)) > 10^12:
-            pretty_price = round(price/(10^decimals))
+        if round(price/(10 ** decimals)) > 10 ** 12:
+            pretty_price = round(price/(10 ** decimals))
         else:
-            pretty_price = round(price / (10 ^ decimals), 4)
+            pretty_price = round(price / (10 ** decimals), 4)
         keyboard.append([Button.inline(f'{name} ({pretty_price} {symbol})',
                                           str.encode(prefix + delimiter + str(name)))])
 

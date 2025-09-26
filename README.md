@@ -11,6 +11,7 @@ Interact and manage notification subscriptions.
 - Domain name search and event subscription made easy
 - Implements a service layer on Doma Multi-Chain Subgraph
 - Makes full use of Poll API and Orderbook API
+- Comes with unit tests and integration tests
 
 ## Requirements
 
