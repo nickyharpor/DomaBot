@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from telethon import TelegramClient, events
 import os
 from dotenv import load_dotenv
@@ -13,6 +11,7 @@ from doma_name_activities_service import DomaNameActivitiesService
 from doma_listings_service import DomaListingsService
 from doma_offers_service import DomaOffersService
 from caller_graphql import DomaGraphQLClient
+from gemini_client import GeminiClient
 
 
 # Environment detection
@@ -109,6 +108,26 @@ async def language(event):
     else:
         tum.update_user(event.sender_id, {'language': language_selected})
     await event.respond(f'{msg.get("change_language_2")}.')
+    raise events.StopPropagation
+
+
+@bot.on(events.CallbackQuery(pattern=b'ai_consult'))
+async def ai_consult(event):
+    gc = GeminiClient(config.gemini_api_key, config.ai_model)
+    dns = DomaNamesService(dgc, api_key=config.doma_api_key)
+    ask_for_filter = f'{msg.get('ai_consult_1')}. {msg.get('ai_consult_2')}:\n`{msg.get('ai_consult_3')}`'
+    async with bot.conversation(event.sender_id) as conv:
+        await conv.send_message(ask_for_filter)
+        response_filter = await conv.get_response()
+        user_prompt = response_filter.text
+        await conv.send_message(f'{msg.get('ai_is_searching_1')}... {msg.get('ai_is_searching_2')}.')
+        keywords = gc.gen_augment_keyword(user_prompt)
+        domains = []
+        for word in keywords:
+            domains.append(dns.get_names_by_name(name_filter=word))
+        ai_domains = gc.gen_suggest_domain(user_prompt, domains)
+        text, buttons = nav.list_domains(msg, ai_domains)
+        await conv.send_message(text, buttons=buttons)
     raise events.StopPropagation
 
 

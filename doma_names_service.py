@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Iterable, List, Optional, Set, Dict, Any
 
-from caller_graphql import DomaGraphQLClient, DEFAULT_ENDPOINT, GraphQLClientError
+from caller_graphql import DomaGraphQLClient, DEFAULT_ENDPOINT
 
 
 __all__ = ["DomaNamesService"]

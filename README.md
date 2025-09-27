@@ -1,12 +1,14 @@
 # Doma Bot
 
 A Telegram bot to monitor and manage all activities on Doma Testnet.
+Ask AI to find the best domain names and assess the value of domains.
 Get all info you need about listings, offers, tokens, and orders.
 Interact and manage notification subscriptions.
 
 ## Features
 
 - Multilingual design that easily expands to new languages
+- AI assistant for domain search, discovery, and value assessment
 - Intuitive UX makes it easy to use by everyone
 - Domain name search and event subscription made easy
 - Implements a service layer on Doma Multi-Chain Subgraph
@@ -16,8 +18,9 @@ Interact and manage notification subscriptions.
 ## Requirements
 
 - Python 3.12 or above
-- MongoDB
+- MongoDB 8 or above
 - Telegram bot token
+- Google AI Studio API key
 
 ## Installation
 Create a `.env` file and set the `ENV` variable to one of the following:

@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 def get_start_user_buttons(msg):
     return [[Button.inline(msg.get('get_recent_listing'),
                            b'get_recent_listing')],
+            [Button.inline(msg.get('ai_consult'),
+                           b'ai_consult')],
             [Button.inline(msg.get('search_domain'),
                            b'search_domain')],
             [Button.inline(msg.get('find_domains_by_owner'),
@@ -82,16 +84,22 @@ def info_domain(msg, d):
 {msg.get("tokenized_at")}: `{d.get("tokenizedAt")}`
 {msg.get("expires_at")}: `{d.get("expiresAt")}`
 {msg.get("claimed_by")}: `{d.get("claimedBy")}`'''
-    explorer_button = Button.url(msg.get('view_on_explorer'), d.get("tokens", [{}])[0].get('explorerUrl'))
+    explorer_button = Button.url(msg.get('view_on_explorer'),
+                                 d.get("tokens", [{}])[0].get('explorerUrl'))
+    buy_button = Button.url(msg.get('buy_domain'),
+                            f'https://dashboard-testnet.doma.xyz/domain/{d.get("name")}')
     recent_activities_button = Button.inline(msg.get('view_recent_activities'),
                                              str.encode(f'get_recent_activities:{d.get("name")}'))
     subscribe_button = Button.inline(msg.get('subscribe'),
                                      str.encode(f'subscribe:{d.get("name")}'))
+    recent_offers_button = Button.inline(msg.get('get_recent_offers'),
+                                     str.encode(f'get_recent_offers:{d.get("name")}'))
     main_menu_button = get_main_menu_button(msg)[0]
-    return response_text, [[explorer_button, recent_activities_button],
+    return response_text, [[explorer_button, buy_button],
+                           [recent_activities_button, recent_offers_button],
                            [subscribe_button, main_menu_button]]
 
-def list_domains(msg, domain_list, text, page=1, nav=None,
+def list_domains(msg, domain_list, text='', page=1, nav=None,
                prefix='info_domain', list_prefix='page_domain',
                delimiter=':'):
     keyboard = []
@@ -109,7 +117,7 @@ def list_domains(msg, domain_list, text, page=1, nav=None,
     if not nav:
         nav = get_main_menu_button(msg)
 
-    page_count = (len(domain_list) // 10) + 1
+    page_count = ((len(domain_list) - 1) // 10) + 1
 
     buttons = paginate(msg,
                        current_page=page,
@@ -126,7 +134,7 @@ def list_domains(msg, domain_list, text, page=1, nav=None,
 
 
 def list_listings(msg, dls, text=None, page=1, nav=None,
-               prefix='get_recent_offers', list_prefix='get_recent_listing',
+               prefix='info_domain', list_prefix='get_recent_listing',
                delimiter=':'):
     keyboard = []
     listings = dls.get_listings(created_since=(datetime.now() - timedelta(days=7)).isoformat())

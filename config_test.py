@@ -15,5 +15,8 @@ db_name='domabot'
 
 tg_bot_token=''
 doma_api_key=''
+gemini_api_key=''
+
+ai_model='gemini-2.0-flash'
 
 admin_list=[]

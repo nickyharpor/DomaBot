@@ -7,6 +7,9 @@ msgstr "DomaBot (Testnet) is created for DomainFi Challenge by Nicky Harpor"
 msgid "about_2"
 msgstr "View submission at https://dorahacks.io/buidl/32851"
 
+msgid "buy_domain"
+msgstr "Buy / Make Offer"
+
 msgid "search_domain"
 msgstr "Find Domains by Keyword"
 
@@ -16,8 +19,29 @@ msgstr "Find Domains by Owner"
 msgid "get_recent_listing"
 msgstr "Get Recent Listing"
 
+msgid "get_recent_offers"
+msgstr "View Offers"
+
 msgid "manage_subscription"
 msgstr "Manage Subscription"
+
+msgid "ai_consult"
+msgstr "AI Domain Name Consultant"
+
+msgid "ai_consult_1"
+msgstr "Describe your business or personal project for AI to help you find the best domain names"
+
+msgid "ai_consult_2"
+msgstr "For example, you can prompt"
+
+msgid "ai_consult_3"
+msgstr "Suggest modern and youthful domain names for my gaming accessories online shop"
+
+msgid "ai_is_searching_1"
+msgstr "AI is searching Doma Testnet for best domain names based on your description"
+
+msgid "ai_is_searching_2"
+msgstr "Please be patient, it can take a while"
 
 msgid "settings"
 msgstr "Settings"
