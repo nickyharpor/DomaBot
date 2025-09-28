@@ -39,4 +39,5 @@ Create a virtual environment and install dependencies:
 
 `uv sync`
 
-Run `python bot.py`
+Run `python bot.py` and also run `python bg_poll.py` in another terminal.
+`bot.py` runs the bot and `bg_poll.py` polls events in the background.

@@ -23,7 +23,7 @@ msgid "get_recent_offers"
 msgstr "View Offers"
 
 msgid "manage_subscription"
-msgstr "Manage Subscription"
+msgstr "Manage Subscriptions"
 
 msgid "ai_consult"
 msgstr "AI Domain Name Consultant"
@@ -162,6 +162,12 @@ msgstr "Domain name added to your subscription list"
 
 msgid "sub_already_existed"
 msgstr "Domain name is already in your subscription list"
+
+msgid "main_menu_1"
+msgstr "Welcome to DomaBot"
+
+msgid "main_menu_2"
+msgstr "What do you want to do"
 
 msgid ""
 msgstr ""

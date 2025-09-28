@@ -60,10 +60,11 @@ async def start(event):
         buttons = nav.get_language_buttons(msg)
         await event.respond(text, buttons=buttons)
     else:
+        text = f'{msg.get("main_menu_1")}! {msg.get("main_menu_2")}?'
         if event.sender_id in config.admin_list:
-            await event.respond("test admin", bottons=nav.get_start_admin_buttons(msg))
+            await event.respond(text, bottons=nav.get_start_admin_buttons(msg))
         else:
-            await event.respond("test", buttons=nav.get_start_user_buttons(msg))
+            await event.respond(text, buttons=nav.get_start_user_buttons(msg))
 
 
 @bot.on(events.CallbackQuery(pattern=b'about'))
@@ -107,7 +108,7 @@ async def language(event):
         tum.save_user(event.sender_id, language=language_selected)
     else:
         tum.update_user(event.sender_id, {'language': language_selected})
-    await event.respond(f'{msg.get("change_language_2")}.')
+    await event.respond(f'{msg.get("change_language_2")}.', buttons=nav.get_main_menu_button(msg))
     raise events.StopPropagation
 
 
@@ -243,7 +244,7 @@ async def get_recent_offers(event):
             else:
                 pretty_price = round(price / (10 ^ decimals), 4)
             response_text += f'#{counter}: {pretty_price} {symbol}\n'
-        await event.respond(response_text)
+        await event.respond(response_text, buttons=nav.get_main_menu_button(msg))
     raise events.StopPropagation
 
 
@@ -260,7 +261,7 @@ async def get_recent_activities(event):
                           f'{msg.get("status")}: `{item.get("type")}`\n'
                           f'{msg.get("tx_hash")}: `{item.get("txHash")}`\n'
                           f'{msg.get("event_time")}: `{item.get("createdAt")}`\n\n')
-    await event.respond(response_text)
+    await event.respond(response_text, buttons=nav.get_main_menu_button(msg))
     raise events.StopPropagation
 
 
@@ -270,9 +271,9 @@ async def subscribe(event):
     sub_list = tum.list_subscriptions(event.sender_id)
     if name not in sub_list:
         tum.add_subscription(event.sender_id, name)
-        await event.respond(f'{msg.get("sub_added")}.')
+        await event.respond(f'{msg.get("sub_added")}.', buttons=nav.get_main_menu_button(msg))
     else:
-        await event.respond(f'{msg.get("sub_already_existed")}!')
+        await event.respond(f'{msg.get("sub_already_existed")}!', buttons=nav.get_main_menu_button(msg))
     raise events.StopPropagation
 
 

@@ -81,8 +81,8 @@ def info_domain(msg, d):
 {msg.get("chain")}: `{d.get("tokens", [{}])[0].get("chain", {}).get("name")}`
 {msg.get("chain")} {msg.get("id")}: `{d.get("tokens", [{}])[0].get("networkId")}`
 {msg.get("owner")}: `{d.get("tokens", [{}])[0].get("ownerAddress")}`
-{msg.get("tokenized_at")}: `{d.get("tokenizedAt")}`
-{msg.get("expires_at")}: `{d.get("expiresAt")}`
+{msg.get("tokenized_at")}: `{d.get("tokenizedAt").replace("T", " ")[:-5]}`
+{msg.get("expires_at")}: `{d.get("expiresAt").replace("T", " ")[:-5]}`
 {msg.get("claimed_by")}: `{d.get("claimedBy")}`'''
     explorer_button = Button.url(msg.get('view_on_explorer'),
                                  d.get("tokens", [{}])[0].get('explorerUrl'))

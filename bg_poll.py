@@ -1,13 +1,14 @@
+from telethon import TelegramClient
+import asyncio
 from typing import Optional, Sequence, Union, List, Dict, Any
+from pymongo import MongoClient, errors as mongo_errors
+from caller_poll import poll_events, acknowledge_events
 import time
 import logging
 
-from pymongo import MongoClient, errors as mongo_errors
-
-from caller_poll import poll_events, acknowledge_events
-
 __all__ = ["run_poll_worker"]
 
+#client = TelegramClient("eventbot", API_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
 def _ensure_indexes(collection) -> None:
     # Ensure idempotent upserts/inserts by unique event uniqueId
