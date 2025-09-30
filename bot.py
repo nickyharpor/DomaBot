@@ -117,7 +117,7 @@ async def ai_consult(event):
     gc = GeminiClient(config.gemini_api_key, config.ai_model)
     dns = DomaNamesService(dgc, api_key=config.doma_api_key)
     ask_for_filter = f'{msg.get('ai_consult_1')}. {msg.get('ai_consult_2')}:\n`{msg.get('ai_consult_3')}`'
-    async with bot.conversation(event.sender_id) as conv:
+    async with bot.conversation(event.sender_id, timeout=2400) as conv:
         await conv.send_message(ask_for_filter)
         response_filter = await conv.get_response()
         user_prompt = response_filter.text
@@ -125,7 +125,10 @@ async def ai_consult(event):
         keywords = gc.gen_augment_keyword(user_prompt)
         domains = []
         for word in keywords:
-            domains.append(dns.get_names_by_name(name_filter=word))
+            try:
+                domains.append(dns.get_names_by_name(name_filter=word))
+            except:
+                pass
         ai_domains = gc.gen_suggest_domain(user_prompt, domains)
         text, buttons = nav.list_domains(msg, ai_domains)
         await conv.send_message(text, buttons=buttons)
@@ -239,10 +242,10 @@ async def get_recent_offers(event):
             symbol = item.get('currency', {}).get('symbol', '???')
             decimals = int(item.get('currency', {}).get('decimals', '0'))
             counter += 1
-            if round(price / (10 ^ decimals)) > 10 ^ 12:
-                pretty_price = round(price / (10 ^ decimals))
+            if round(price / (10 ** decimals)) > 10 ** 12:
+                pretty_price = round(price / (10 ** decimals))
             else:
-                pretty_price = round(price / (10 ^ decimals), 4)
+                pretty_price = round(price / (10 ** decimals), 4)
             response_text += f'#{counter}: {pretty_price} {symbol}\n'
         await event.respond(response_text, buttons=nav.get_main_menu_button(msg))
     raise events.StopPropagation
@@ -260,7 +263,7 @@ async def get_recent_activities(event):
                           f'`{DomaNameActivitiesService.space_before_capitals(item.get("__typename"))}`\n'
                           f'{msg.get("status")}: `{item.get("type")}`\n'
                           f'{msg.get("tx_hash")}: `{item.get("txHash")}`\n'
-                          f'{msg.get("event_time")}: `{item.get("createdAt")}`\n\n')
+                          f'{msg.get("event_time")}: `{item.get("createdAt").replace("T", " ")[:-5]}`\n\n')
     await event.respond(response_text, buttons=nav.get_main_menu_button(msg))
     raise events.StopPropagation
 
@@ -284,4 +287,5 @@ try:
     print('bot started')
     bot.run_until_disconnected()
 finally:
-    print('never runs in async mode!')
+    db.close()
+    print('bot stopped')

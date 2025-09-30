@@ -30,10 +30,9 @@ class GeminiClient:
             # Generate response (just one user role, no system role allowed)
             response = model.generate_content([{"role": "user", "parts": [{"text": final_input}]}])
 
-            return response.text if response and response.text else "[No response received]"
-
-        except Exception as e:
-            return f"Error: {str(e)}"
+            return response.text if response and response.text else ""
+        except:
+            return ""
 
 
     def gen_augment_keyword(self, user_prompt):

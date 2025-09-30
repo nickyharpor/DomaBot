@@ -3,6 +3,7 @@ language='en'
 api_id=0
 api_hash=''
 session_name='domabot'
+background_name='domabackground'
 
 proxy=False
 proxy_protocol='socks5'

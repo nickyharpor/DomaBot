@@ -1,112 +1,68 @@
 from telethon import TelegramClient
-import asyncio
-from typing import Optional, Sequence, Union, List, Dict, Any
-from pymongo import MongoClient, errors as mongo_errors
+from dotenv import load_dotenv
+from mongo import Mongo
+from tg_users_service import TelegramUserManager
 from caller_poll import poll_events, acknowledge_events
 import time
-import logging
-
-__all__ = ["run_poll_worker"]
-
-#client = TelegramClient("eventbot", API_ID, API_HASH).start(bot_token=BOT_TOKEN)
-
-def _ensure_indexes(collection) -> None:
-    # Ensure idempotent upserts/inserts by unique event uniqueId
-    collection.create_index("uniqueId", unique=True)
+import polib
+import os
 
 
-def _insert_events(collection, events: List[Dict[str, Any]], logger: logging.Logger) -> None:
-    if not events:
-        return
-    try:
-        collection.insert_many(events, ordered=False)
-    except mongo_errors.BulkWriteError as bwe:
-        write_errors = bwe.details.get("writeErrors", []) if bwe.details else []
-        # Ignore duplicate key errors; re-raise others
-        non_dup_errors = [e for e in write_errors if e.get("code") != 11000]
-        if non_dup_errors:
-            logger.error("Bulk insert encountered non-duplicate errors: %s", non_dup_errors)
-            raise
-        dup_count = len(write_errors) - len(non_dup_errors)
-        if dup_count:
-            logger.debug("Ignored %d duplicate events during insert.", dup_count)
+if __name__ == '__main__':
+    load_dotenv()
+    env = os.getenv("ENV")
+    if env == 'live':
+        import config_live
+        config = config_live
+    elif env == 'dev':
+        import config_dev
+        config = config_dev
+    else:
+        import config_test
+        config = config_test
 
+    msg = {}
+    for entry in polib.pofile('msg_' + config.language + '.po'):
+        msg[entry.msgid] = entry.msgstr
 
-def run_poll_worker(
-    api_key: str,
-    mongo_uri: str,
-    db_name: str = "doma",
-    collection_name: str = "events",
-    *,
-    event_types: Optional[Sequence[str]] = None,
-    limit: Optional[int] = None,
-    finalized_only: Optional[bool] = True,
-    poll_interval_seconds: float = 2.0,
-    timeout: Union[int, float] = 15,
-    logger: Optional[logging.Logger] = None,
-) -> None:
-    """
-    Continuously polls events, saves them to MongoDB, and acknowledges processed events.
+    db = Mongo(config.db_host, config.db_port, config.db_name)
+    tum = TelegramUserManager(db, 'telegram_users')
 
-    Args:
-        api_key: API key for the API.
-        mongo_uri: MongoDB URI, e.g. mongodb://localhost:27017
-        db_name: Database name to store events.
-        collection_name: Collection name to store events.
-        event_types: Optional list of event type filters.
-        limit: Optional max number of events per poll.
-        finalized_only: If True, only finalized events are returned.
-        poll_interval_seconds: Sleep interval when no events or on error.
-        timeout: HTTP request timeout.
-        logger: Optional logger; if None, a default logger is created.
+    if config.proxy:
+        bot = TelegramClient(session=config.background_name, api_id=config.api_id, api_hash=config.api_hash,
+                             proxy=(config.proxy_protocol, config.proxy_host, config.proxy_port))
+    else:
+        bot = TelegramClient(session=config.background_name, api_id=config.api_id, api_hash=config.api_hash)
 
-    Behavior:
-        - Inserts events as-is; ensures a unique index on 'uniqueId' to deduplicate.
-        - Acknowledges with 'lastId' only after successful insert.
-        - Sleeps between polls when no events, or on errors, then continues.
-    """
-    if logger is None:
-        logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-        logger = logging.getLogger("bg_poll")
-
-    client = MongoClient(mongo_uri)
-    db = client[db_name]
-    collection = db[collection_name]
-
-    _ensure_indexes(collection)
-
-    logger.info("Starting poll worker. DB=%s Collection=%s", db_name, collection_name)
+    event_collection = 'doma_events'
+    poll_interval_seconds = 30
 
     try:
         while True:
             try:
                 response = poll_events(
-                    api_key=api_key,
-                    event_types=event_types,
-                    limit=limit,
-                    finalized_only=finalized_only,
-                    timeout=timeout,
+                    api_key=config.doma_api_key
                 )
                 events = response.get("events") or []
                 last_id = response.get("lastId")
                 has_more = bool(response.get("hasMoreEvents"))
 
                 if events:
-                    _insert_events(collection, events, logger)
+                    db.insert(event_collection, events)
                     if last_id is not None:
-                        acknowledge_events(api_key=api_key, last_event_id=int(last_id), timeout=timeout)
-                        logger.info("Saved and acknowledged %d events up to id %s.", len(events), last_id)
-                    # If API indicates more events may be available, loop again immediately
+                        acknowledge_events(api_key=config.doma_api_key,
+                                           last_event_id=int(last_id))
+                        print("Saved and acknowledged %d events up to id %s.", len(events), last_id)
                     if has_more:
                         continue
                 else:
-                    logger.debug("No new events received.")
+                    print("No new events received.")
 
                 time.sleep(poll_interval_seconds)
             except Exception as e:
-                logger.exception("Error during polling cycle: %s", e)
+                print("Error during polling cycle: %s", e)
                 time.sleep(poll_interval_seconds)
     except KeyboardInterrupt:
-        logger.info("Poll worker interrupted; shutting down.")
+        print("Poll worker interrupted; shutting down.")
     finally:
-        client.close()
+        db.close()

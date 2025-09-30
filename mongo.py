@@ -52,3 +52,6 @@ class Mongo:
         except Exception as e:
             print(f"An error occurred: {e}")
             return None
+
+    def close(self):
+        self.db.client.close()
