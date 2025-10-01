@@ -1,0 +1,200 @@
+msgid "about"
+msgstr "О нас"
+
+msgid "about_1"
+msgstr "Домабот (Тестнет) создан для DomainFi Challenge Никки Харпором"
+
+msgid "about_2"
+msgstr "Просмотреть подачу заявки по адресу: https://dorahacks.io/buidl/32851"
+
+msgid "buy_domain"
+msgstr "Купить / сделать предложение"
+
+msgid "search_domain"
+msgstr "Найти домены по ключевому слову"
+
+msgid "find_domains_by_owner"
+msgstr "Найти домены по владельцу"
+
+msgid "get_recent_listing"
+msgstr "Получить последние объявления"
+
+msgid "get_recent_offers"
+msgstr "Просмотр предложений"
+
+msgid "manage_subscription"
+msgstr "Управление подписками"
+
+msgid "manage_subscription_1"
+msgstr "Здесь Ваши подписки"
+
+msgid "manage_subscription_2"
+msgstr "Выберите подписку, которую нужно изменить или удалить"
+
+msgid "manage_subscription_x1"
+msgstr "У вас пока нет подписок"
+
+msgid "manage_subscription_x2"
+msgstr "Найти доменное имя для подписки на его мероприятия"
+
+msgid "remove_subscription"
+msgstr "Удалить подписку"
+
+msgid "remove_subscription_1"
+msgstr "Домен удалён из вашего списка подписок"
+
+msgid "remove_subscription_2"
+msgstr "Домен уже удалён из списка подписок"
+
+msgid "info_subscription_1"
+msgstr "Вы выбрали"
+
+msgid "info_subscription_2"
+msgstr "Что ты хочешь сделать?"
+
+msgid "ai_consult"
+msgstr "Консультант по доменным именам в области ИИ"
+
+msgid "ai_consult_1"
+msgstr "Опишите свой бизнес или личный проект, чтобы искусственный интеллект помог вам найти лучшие доменные имена"
+
+msgid "ai_consult_2"
+msgstr "Например, вы можете ввести"
+
+msgid "ai_consult_3"
+msgstr "Предложите современные и молодежные доменные имена для моего онлайн-магазина игровой атрибутики"
+
+msgid "ai_is_searching_1"
+msgstr "Искусственный интеллект ищет на тестовой сети Doma лучшие доменные имена, соответствующие вашему описанию"
+
+msgid "ai_is_searching_2"
+msgstr "Пожалуйста, подождите, это может занять некоторое время"
+
+msgid "settings"
+msgstr "Настройки"
+
+msgid "change_language"
+msgstr "Изменить язык"
+
+msgid "change_language_1"
+msgstr "Выберите язык"
+
+msgid "change_language_2"
+msgstr "Ваш язык изменился"
+
+msgid "english"
+msgstr "Английский"
+
+msgid "spanish"
+msgstr "Испанский"
+
+msgid "french"
+msgstr "Французский"
+
+msgid "portuguese"
+msgstr "Португальский"
+
+msgid "russian"
+msgstr "Русский"
+
+msgid "arabic"
+msgstr "арабский"
+
+msgid "main_menu"
+msgstr "Главное меню"
+
+msgid "last_week_domains"
+msgstr "Домены, зарегистрированные недавно"
+
+msgid "enter_a_filter_string_1"
+msgstr "Введите строку фильтра для поиска"
+
+msgid "enter_a_filter_string_2"
+msgstr "Например, `doma` найдет `doma.com`, `mydoma.ai` и любой другой домен с `doma` внутри"
+
+msgid "enter_a_caip10_address_1"
+msgstr "Введите адрес кошелька владельца в формате CAIP-10"
+
+msgid "enter_a_caip10_address_2"
+msgstr "Для примера, для Ethereum Mainnet `eip155:1:0xab16a96D359eC26a11e2C2b3d8f8B8942d5Bfcdb` является адресом в формате CAIP-10"
+
+msgid "list_domains_text"
+msgstr "доменов найдено"
+
+msgid "next"
+msgstr "Далее"
+
+msgid "previous"
+msgstr "Предыдущий"
+
+msgid "last"
+msgstr "Последний"
+
+msgid "first"
+msgstr "Первый"
+
+msgid "from"
+msgstr "от"
+
+msgid "searching"
+msgstr "Поиск"
+
+msgid "view_on_explorer"
+msgstr "Посмотреть в Eksplore'e"
+
+msgid "view_recent_activities"
+msgstr "Просмотр недавних действий"
+
+msgid "subscribe"
+msgstr "Подписаться"
+
+msgid "domain"
+msgstr "Домен"
+
+msgid "chain"
+msgstr "Кольцо"
+
+msgid "id"
+msgstr "Идентификатор"
+
+msgid "owner"
+msgstr "Владелец"
+
+msgid "tokenized_at"
+msgstr "Токенизировано в"
+
+msgid "expires_at"
+msgstr "Срок действия истекает"
+
+msgid "claimed_by"
+msgstr "Заявлен"
+
+msgid "event"
+msgstr "Событие"
+
+msgid "status"
+msgstr "Состояние"
+
+msgid "tx_hash"
+msgstr "Хэш транзакции"
+
+msgid "event_time"
+msgstr "Событие в реальном времени"
+
+msgid "recent_activities"
+msgstr "Последние действия"
+
+msgid "sub_added"
+msgstr "Домен добавлен в ваш список подписок"
+
+msgid "sub_already_existed"
+msgstr "Доменное имя уже находится в вашем списке подписок"
+
+msgid "main_menu_1"
+msgstr "Добро пожаловать в Домабот"
+
+msgid "main_menu_2"
+msgstr "Что ты хочешь сделать"
+
+msgid "new_event_alert"
+msgstr "Уведомление о новой události для"

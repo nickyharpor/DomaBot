@@ -1,7 +1,7 @@
 from telethon import TelegramClient
 from dotenv import load_dotenv
 from mongo import Mongo
-from tg_users_service import TelegramUserManager
+import poll_event_models as pem
 from caller_poll import poll_events, acknowledge_events
 import time
 import polib
@@ -22,11 +22,10 @@ if __name__ == '__main__':
         config = config_test
 
     msg = {}
-    for entry in polib.pofile('msg_' + config.language + '.po'):
+    for entry in polib.pofile('translations/msg_en.po'):
         msg[entry.msgid] = entry.msgstr
 
     db = Mongo(config.db_host, config.db_port, config.db_name)
-    tum = TelegramUserManager(db, 'telegram_users')
 
     if config.proxy:
         bot = TelegramClient(session=config.background_name, api_id=config.api_id, api_hash=config.api_hash,
@@ -35,7 +34,7 @@ if __name__ == '__main__':
         bot = TelegramClient(session=config.background_name, api_id=config.api_id, api_hash=config.api_hash)
 
     event_collection = 'doma_events'
-    poll_interval_seconds = 30
+    users_collection = 'telegram_users'
 
     try:
         while True:
@@ -49,6 +48,18 @@ if __name__ == '__main__':
 
                 if events:
                     db.insert(event_collection, events)
+                    for event in events:
+                        sub_users = db.find(users_collection, {'subscriptions': { "$in": [event.get("name")] }})
+                        if sub_users:
+                            event_data = pem.parse_event_data(event.get('type'), event.get('eventData'))
+                            if event_data:
+                                notification = (f'{msg.get("new_event_alert")} `{event.get("name")}`\n\n'
+                                                f'{pem.dataclass_to_string(event_data)}')
+                            else:
+                                notification = (f'{msg.get("new_event_alert")} `{event.get("name")}`\n\n'
+                                                f'{msg.get("event")}: `{event.get("type")}`')
+                            for u in sub_users:
+                                bot.send_message(u.get('user_id'), notification)
                     if last_id is not None:
                         acknowledge_events(api_key=config.doma_api_key,
                                            last_event_id=int(last_id))
@@ -58,10 +69,10 @@ if __name__ == '__main__':
                 else:
                     print("No new events received.")
 
-                time.sleep(poll_interval_seconds)
+                time.sleep(config.bg_poll_interval_seconds)
             except Exception as e:
                 print("Error during polling cycle: %s", e)
-                time.sleep(poll_interval_seconds)
+                time.sleep(config.bg_poll_interval_seconds)
     except KeyboardInterrupt:
         print("Poll worker interrupted; shutting down.")
     finally:

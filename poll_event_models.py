@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from typing import Any, Dict, List, Optional, Type, TypeVar, Union
 
 
@@ -540,7 +540,7 @@ EVENT_DATA_CLASS_BY_TYPE: Dict[str, Type[EventData]] = {
 }
 
 
-def parse_event_data(event_type: str, payload: Dict[str, Any]) -> EventData:
+def parse_event_data(event_type: str, payload: Dict[str, Any]):
     """
     Parse an eventData payload into a strongly-typed dataclass instance.
 
@@ -550,13 +550,29 @@ def parse_event_data(event_type: str, payload: Dict[str, Any]) -> EventData:
 
     Returns:
       - An instance of the corresponding dataclass model.
-
-    Raises:
-      - KeyError if event_type is unknown.
-      - TypeError/ValueError if required fields are missing.
     """
-    cls = EVENT_DATA_CLASS_BY_TYPE[event_type]
-    return _coerce(cls, payload)
+    try:
+        cls = EVENT_DATA_CLASS_BY_TYPE[event_type]
+        return _coerce(cls, payload)
+    except:
+        return None
+
+
+def dataclass_to_string(data_instance) -> str:
+    data_dict = asdict(data_instance)
+    output_lines = []
+    for field_name, value in data_dict.items():
+        if isinstance(value, list):
+            display_value = f"{value}"
+        elif isinstance(value, dict) and 'message' in value:
+            display_value = f"{value.get('message')}"
+        else:
+            display_value = value
+
+        output_lines.append(f"{field_name}: `{display_value}`")
+
+    # 3. Join the lines with a newline character.
+    return "\n".join(output_lines)
 
 
 __all__ = [
@@ -601,4 +617,5 @@ __all__ = [
     "EventData",
     "EVENT_DATA_CLASS_BY_TYPE",
     "parse_event_data",
+    "dataclass_to_string",
 ]

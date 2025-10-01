@@ -1,5 +1,3 @@
-language='en'
-
 api_id=0
 api_hash=''
 session_name='domabot'
@@ -19,5 +17,6 @@ doma_api_key=''
 gemini_api_key=''
 
 ai_model='gemini-2.0-flash'
+bg_poll_interval_seconds = 30
 
 admin_list=[]

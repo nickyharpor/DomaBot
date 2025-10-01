@@ -25,6 +25,33 @@ msgstr "View Offers"
 msgid "manage_subscription"
 msgstr "Manage Subscriptions"
 
+msgid "manage_subscription_1"
+msgstr "Here are your subscriptions"
+
+msgid "manage_subscription_2"
+msgstr "Select a subscription to change or remove it"
+
+msgid "manage_subscription_x1"
+msgstr "You don't have any subscriptions yet"
+
+msgid "manage_subscription_x2"
+msgstr "Find a domain name to subscribe to its events"
+
+msgid "remove_subscription"
+msgstr "Remove Subscription"
+
+msgid "remove_subscription_1"
+msgstr "Domain removed from your subscription list"
+
+msgid "remove_subscription_2"
+msgstr "Domain has already been removed from subscription list"
+
+msgid "info_subscription_1"
+msgstr "You have selected"
+
+msgid "info_subscription_2"
+msgstr "What do you want to do"
+
 msgid "ai_consult"
 msgstr "AI Domain Name Consultant"
 
@@ -168,6 +195,9 @@ msgstr "Welcome to DomaBot"
 
 msgid "main_menu_2"
 msgstr "What do you want to do"
+
+msgid "new_event_alert"
+msgstr "New event alert for"
 
 msgid ""
 msgstr ""

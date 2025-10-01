@@ -11,7 +11,7 @@ def get_start_user_buttons(msg):
             [Button.inline(msg.get('find_domains_by_owner'),
                            b'find_domains_by_owner')],
             [Button.inline(msg.get('manage_subscription'),
-                           b'manage_subscription')],
+                           b'manage_subscription:1')],
             [Button.inline(msg.get('settings'),
                            b'settings')],
             [Button.inline(msg.get('about'),
@@ -33,6 +33,9 @@ def get_language_buttons(msg):
                            b'language:ru')],
             [Button.inline(f'🇸🇦 {msg.get("arabic")}',
                            b'language:ar')]]
+
+def get_remove_subscription_button(msg, domain_name):
+    return [Button.inline(msg.get('remove_subscription'), str.encode(f'remove_sub:{domain_name}'))]
 
 def navigate(msg, current_page=1, total_pages=1, data_prefix=None, delimiter=':',
              mode='a'):
@@ -119,10 +122,15 @@ def list_domains(msg, domain_list, text='', page=1, nav=None,
 
     page_count = ((len(domain_list) - 1) // 10) + 1
 
+    if text:
+        data_prefix = f'{list_prefix}{delimiter}{text}'
+    else:
+        data_prefix = list_prefix
+
     buttons = paginate(msg,
                        current_page=page,
                        total_pages=page_count,
-                       data_prefix=f'{list_prefix}{delimiter}{text}',
+                       data_prefix=data_prefix,
                        before=keyboard,
                        after=nav,
                        delimiter=delimiter)

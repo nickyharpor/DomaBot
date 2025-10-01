@@ -29,7 +29,7 @@ else:
 
 # Load the message file
 msg = {}
-for entry in polib.pofile('msg_' + config.language + '.po'):
+for entry in polib.pofile('translations/msg_en.po'):
     msg[entry.msgid] = entry.msgstr
 
 # Connect to database
@@ -84,11 +84,41 @@ async def settings(event):
     raise events.StopPropagation
 
 
-@bot.on(events.CallbackQuery(pattern=b'manage_subscription'))
+@bot.on(events.CallbackQuery(pattern=b'manage_subscription:.*'))
 async def manage_subscription(event):
-    text = f'{msg.get("about_1")}\n\n{msg.get("about_2")}'
-    buttons = nav.get_main_menu_button(msg)
+    page = int(event.data.decode().split(':')[1])
+    sub_list = tum.list_subscriptions(event.sender_id)
+    if sub_list:
+        msg_text, buttons = nav.list_domains(msg, sub_list,
+                                   page=page,
+                                   prefix='info_sub',
+                                   list_prefix='manage_subscription')
+        text = f'{msg.get("manage_subscription_1")}. {msg.get("manage_subscription_2")}.'
+    else:
+        text = f'{msg.get("manage_subscription_x1")}. {msg.get("manage_subscription_x2")}.'
+        buttons = nav.get_main_menu_button(msg)
     await event.respond(text, buttons=buttons)
+    raise events.StopPropagation
+
+
+@bot.on(events.CallbackQuery(pattern=b'info_sub:.*'))
+async def info_subscription(event):
+    domain = event.data.decode().split(':')[1]
+    text = f'{msg.get("info_subscription_1")} `{domain}`. {msg.get("info_subscription_2")}?'
+    buttons = [nav.get_remove_subscription_button(msg, domain),
+               nav.get_main_menu_button(msg)]
+    await event.respond(text, buttons=buttons)
+    raise events.StopPropagation
+
+
+@bot.on(events.CallbackQuery(pattern=b'remove_sub:.*'))
+async def remove_subscription(event):
+    domain = event.data.decode().split(':')[1]
+    result = tum.remove_subscription(event.sender_id, domain)
+    if result.modified_count > 0:
+        await event.respond(f'{msg.get("remove_subscription_1")}.', buttons=nav.get_main_menu_button(msg))
+    else:
+        await event.respond(f'{msg.get("remove_subscription_2")}.', buttons=nav.get_main_menu_button(msg))
     raise events.StopPropagation
 
 
@@ -152,7 +182,7 @@ async def search_domain(event):
 
 @bot.on(events.CallbackQuery(pattern=b'find_domains_by_owner'))
 async def find_domains_by_owner(event):
-    # eip155:97476:0xe62105A0c116e1035cB9159f3a0C55f8efE38e12
+    # eip155:11155111:0x8E2045A04E4B9981d2805150FB5311DC4BE0003B
     dns = DomaNamesService(dgc, api_key=config.doma_api_key)
     ask_for_filter = f'{msg.get('enter_a_caip10_address_1')}. {msg.get('enter_a_caip10_address_2')}.'
     async with bot.conversation(event.sender_id) as conv:

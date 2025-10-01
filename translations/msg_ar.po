@@ -1,0 +1,200 @@
+msgid "about"
+msgstr "حول"
+
+msgid "about_1"
+msgstr "دومابوت (اختبار الشبكة) تم إنشاؤه لتحدي دومين في من قبل نيكى هاربور"
+
+msgid "about_2"
+msgstr "عرض المساهمة على https://dorahacks.io/buidl/32851"
+
+msgid "buy_domain"
+msgstr "الشراء/تقديم عرض"
+
+msgid "search_domain"
+msgstr "ابحث عن النطاقات حسب الكلمة الرئيسية"
+
+msgid "find_domains_by_owner"
+msgstr "إيجاد نطاقات حسب المالك"
+
+msgid "get_recent_listing"
+msgstr "احصل على الإعلانات الأخيرة"
+
+msgid "get_recent_offers"
+msgstr "عرض العروض"
+
+msgid "manage_subscription"
+msgstr "إدارة الاشتراكات"
+
+msgid "manage_subscription_1"
+msgstr "هذه اشتراكاتك"
+
+msgid "manage_subscription_2"
+msgstr "اختر اشتراكًا لتغييره أو حذفه"
+
+msgid "manage_subscription_x1"
+msgstr "لم تقم بعد بأي اشتراكات"
+
+msgid "manage_subscription_x2"
+msgstr "ابحث عن اسم نطاق للاشتراك في فعالياته"
+
+msgid "remove_subscription"
+msgstr "إلغاء الاشتراك"
+
+msgid "remove_subscription_1"
+msgstr "تم إزالة النطاق من قائمة اشتراكاتك"
+
+msgid "remove_subscription_2"
+msgstr "تم إزالة النطاق بالفعل من قائمة الاشتراك"
+
+msgid "info_subscription_1"
+msgstr "لقد قمت باختيار"
+
+msgid "info_subscription_2"
+msgstr "ماذا تريد أن تفعل"
+
+msgid "ai_consult"
+msgstr "استشاري أسماء نطاقات الذكاء الاصطناعي"
+
+msgid "ai_consult_1"
+msgstr "اشرح مشروعك التجاري أو الشخصي لكي تساعدك الذكاء الاصطناعي في إيجاد أفضل أسماء النطاقات"
+
+msgid "ai_consult_2"
+msgstr "على سبيل المثال، يمكنك أن تطلب"
+
+msgid "ai_consult_3"
+msgstr "اقترح أسماء نطاقات حديثة وشابة لمجموعة ألعابي لمتجر الألعاب عبر الإنترنت"
+
+msgid "ai_is_searching_1"
+msgstr "يقوم الذكاء الاصطناعي بالبحث في شبكة اختبار `دوما` عن أفضل أسماء النطاقات بناءً على وصفك"
+
+msgid "ai_is_searching_2"
+msgstr "يرجى التحلي بالصبر، فقد يستغرق الأمر بعض الوقت"
+
+msgid "settings"
+msgstr "الإعدادات"
+
+msgid "change_language"
+msgstr "غير اللغة"
+
+msgid "change_language_1"
+msgstr "اختر لغة"
+
+msgid "change_language_2"
+msgstr "لقد تغيرت لغتك"
+
+msgid "english"
+msgstr "الإنجليزية"
+
+msgid "spanish"
+msgstr "الإسبانية"
+
+msgid "french"
+msgstr "الفرنسية"
+
+msgid "portuguese"
+msgstr "البرتغالية"
+
+msgid "russian"
+msgstr "الروسية"
+
+msgid "arabic"
+msgstr "عَرَبِيّ"
+
+msgid "main_menu"
+msgstr "القائمة الرئيسية"
+
+msgid "last_week_domains"
+msgstr "الأسماء المستعارة المسجلة مؤخرًا"
+
+msgid "enter_a_filter_string_1"
+msgstr "أدخل سلسلة تصفية للبحث"
+
+msgid "enter_a_filter_string_2"
+msgstr "على سبيل المثال، ستجد `doma` كل نطاقات `doma.com` و `mydoma.ai`، وغيرها من النطاقات التي تحتوي على كلمة `doma`"
+
+msgid "enter_a_caip10_address_1"
+msgstr "أدخل عنوان محفظة المالك بتنسيق CAIP-10"
+
+msgid "enter_a_caip10_address_2"
+msgstr "على سبيل المثال، بالنسبة للشبكة الرئيسية لـ Ethereum `eip155:1:0xab16a96D359eC26a11e2C2b3d8f8B8942d5Bfcdb` هو عنوان بتنسيق CAIP-10"
+
+msgid "list_domains_text"
+msgstr "المناطق الموجودة"
+
+msgid "next"
+msgstr "التالي"
+
+msgid "previous"
+msgstr "السابق"
+
+msgid "last"
+msgstr "الجزء الأخير"
+
+msgid "first"
+msgstr "الأول"
+
+msgid "from"
+msgstr "من"
+
+msgid "searching"
+msgstr "بحث عن"
+
+msgid "view_on_explorer"
+msgstr "عرض على المستكشف"
+
+msgid "view_recent_activities"
+msgstr "عرض الأنشطة الأخيرة"
+
+msgid "subscribe"
+msgstr "اشترك"
+
+msgid "domain"
+msgstr "النطاق"
+
+msgid "chain"
+msgstr "سلسلة"
+
+msgid "id"
+msgstr "هوية"
+
+msgid "owner"
+msgstr "المالك"
+
+msgid "tokenized_at"
+msgstr "تم توكنيزه في"
+
+msgid "expires_at"
+msgstr "تنتهي صلاحيتها في"
+
+msgid "claimed_by"
+msgstr "مُطالَب به"
+
+msgid "event"
+msgstr "حدث"
+
+msgid "status"
+msgstr "الحالة"
+
+msgid "tx_hash"
+msgstr "كلمة المعاملة"
+
+msgid "event_time"
+msgstr "وقت الحدث"
+
+msgid "recent_activities"
+msgstr "الأنشطة الأخيرة"
+
+msgid "sub_added"
+msgstr "أضفنا اسم النطاق إلى قائمة الاشتراكات الخاصة بك."
+
+msgid "sub_already_existed"
+msgstr "اسم النطاق موجود بالفعل في قائمة اشتراكك"
+
+msgid "main_menu_1"
+msgstr "مرحبا بك في دومابات"
+
+msgid "main_menu_2"
+msgstr "ماذا تريد أن تفعل"
+
+msgid "new_event_alert"
+msgstr "تنبيه حدث جديد ل"

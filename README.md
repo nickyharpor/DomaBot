@@ -5,6 +5,10 @@ Ask AI to find the best domain names and assess the value of domains.
 Get all info you need about listings, offers, tokens, and orders.
 Interact and manage notification subscriptions.
 
+### - Try it at [@doma_testnet_bot](https://t.me/doma_testnet_bot)
+
+### - View [screenshots](https://github.com/nickyharpor/DomaBot/wiki)
+
 ## Features
 
 - Multilingual design that easily expands to new languages
@@ -19,6 +23,7 @@ Interact and manage notification subscriptions.
 
 - Python 3.12 or above
 - MongoDB 8 or above
+- Doma API key
 - Telegram bot token
 - Google AI Studio API key
 

@@ -1,0 +1,200 @@
+msgid "about"
+msgstr "Sobre"
+
+msgid "about_1"
+msgstr "DomaBot (TesteNet) foi criado para o Desafio DomainFi por Nicky Harpor"
+
+msgid "about_2"
+msgstr "Ver submissão em https://dorahacks.io/buidl/32851"
+
+msgid "buy_domain"
+msgstr "Compre / Faça uma oferta"
+
+msgid "search_domain"
+msgstr "Encontre Domínios por Palavra-Chave"
+
+msgid "find_domains_by_owner"
+msgstr "Encontrar domínios por proprietário"
+
+msgid "get_recent_listing"
+msgstr "Listagem Recente"
+
+msgid "get_recent_offers"
+msgstr "Ver Ofertas"
+
+msgid "manage_subscription"
+msgstr "Gerenciar Assinaturas"
+
+msgid "manage_subscription_1"
+msgstr "Aqui estão as suas assinaturas"
+
+msgid "manage_subscription_2"
+msgstr "Selecione uma assinatura para alterá-la ou removê-la"
+
+msgid "manage_subscription_x1"
+msgstr "Você ainda não possui nenhuma assinatura"
+
+msgid "manage_subscription_x2"
+msgstr "Encontre um nome de domínio para se inscrever em seus eventos"
+
+msgid "remove_subscription"
+msgstr "Cancelar Assinatura"
+
+msgid "remove_subscription_1"
+msgstr "Domínio removido da sua lista de assinaturas"
+
+msgid "remove_subscription_2"
+msgstr "O domínio já foi removido da lista de assinaturas"
+
+msgid "info_subscription_1"
+msgstr "Você escolheu"
+
+msgid "info_subscription_2"
+msgstr "O que você quer fazer"
+
+msgid "ai_consult"
+msgstr "Consultor de Domínio de IA"
+
+msgid "ai_consult_1"
+msgstr "Descreva o seu negócio ou projeto pessoal para a IA ajudá-lo a encontrar os melhores nomes de domínio"
+
+msgid "ai_consult_2"
+msgstr "Por exemplo, você pode solicitar"
+
+msgid "ai_consult_3"
+msgstr "Aqui estão algumas sugestões de nomes de domínios modernos e jovens para sua loja virtual de acessórios de jogos"
+
+msgid "ai_is_searching_1"
+msgstr "A IA está pesquisando o teste da rede Domena para os melhores nomes de domínio com base na sua descrição"
+
+msgid "ai_is_searching_2"
+msgstr "Por favor, seja paciente, pode levar um tempo"
+
+msgid "settings"
+msgstr "Configurações"
+
+msgid "change_language"
+msgstr "Mudar Idioma"
+
+msgid "change_language_1"
+msgstr "Selecione um idioma"
+
+msgid "change_language_2"
+msgstr "Sua linguagem mudou"
+
+msgid "english"
+msgstr "Inglês"
+
+msgid "spanish"
+msgstr "Español"
+
+msgid "french"
+msgstr "Francês"
+
+msgid "portuguese"
+msgstr "Português"
+
+msgid "russian"
+msgstr "Russian"
+
+msgid "arabic"
+msgstr "Árabe"
+
+msgid "main_menu"
+msgstr "Menu Principal"
+
+msgid "last_week_domains"
+msgstr "Domínios recentes listados"
+
+msgid "enter_a_filter_string_1"
+msgstr "Insira uma string de filtro para pesquisar"
+
+msgid "enter_a_filter_string_2"
+msgstr "Por exemplo, `doma` encontrará `doma.com`, `mydoma.ai` e todos os outros domínios com `doma` neles"
+
+msgid "enter_a_caip10_address_1"
+msgstr "Inserir o endereço da carteira do proprietário no formato CAIP-10"
+
+msgid "enter_a_caip10_address_2"
+msgstr "Por exemplo, para Ethereum Mainnet `eip155:1:0xab16a96D359eC26a11e2C2b3d8f8B8942d5Bfcdb` é um endereço no formato CAIP-10"
+
+msgid "list_domains_text"
+msgstr "domínios encontrados"
+
+msgid "next"
+msgstr "Próximo"
+
+msgid "previous"
+msgstr "Anterior"
+
+msgid "last"
+msgstr "Último"
+
+msgid "first"
+msgstr "Primeiro"
+
+msgid "from"
+msgstr "de"
+
+msgid "searching"
+msgstr "Pesquisando por:"
+
+msgid "view_on_explorer"
+msgstr "Ver no Explorer"
+
+msgid "view_recent_activities"
+msgstr "Ver Atividades Recentes"
+
+msgid "subscribe"
+msgstr "Assine"
+
+msgid "domain"
+msgstr "Domínio"
+
+msgid "chain"
+msgstr "Corrente"
+
+msgid "id"
+msgstr "Identificação"
+
+msgid "owner"
+msgstr "Proprietário"
+
+msgid "tokenized_at"
+msgstr "Tokenizado em"
+
+msgid "expires_at"
+msgstr "expira em"
+
+msgid "claimed_by"
+msgstr "Reclamado por"
+
+msgid "event"
+msgstr "Evento"
+
+msgid "status"
+msgstr "Estado"
+
+msgid "tx_hash"
+msgstr "Hash de Transação"
+
+msgid "event_time"
+msgstr "Tempo do Evento"
+
+msgid "recent_activities"
+msgstr "Atividades recentes"
+
+msgid "sub_added"
+msgstr "Nome de domínio adicionado à sua lista de assinaturas"
+
+msgid "sub_already_existed"
+msgstr "O nome de domínio já está na sua lista de assinaturas"
+
+msgid "main_menu_1"
+msgstr "Bem-vindo ao DomaBot"
+
+msgid "main_menu_2"
+msgstr "O que você quer fazer"
+
+msgid "new_event_alert"
+msgstr "Alerta de novo evento para"
