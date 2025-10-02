@@ -62,7 +62,7 @@ msgid "ai_consult_2"
 msgstr "Par exemple, vous pouvez demander à Coral de traduire des phrases en utilisant le format suivant"
 
 msgid "ai_consult_3"
-msgstr"Propose des noms de domaine modernes et jeunes pour ma boutique en ligne d'accessoires de jeux vidéo"
+msgstr "Propose des noms de domaine modernes et jeunes pour ma boutique en ligne d'accessoires de jeux vidéo"
 
 msgid "ai_is_searching_1"
 msgstr "L'IA recherche sur le testnet Doma les meilleurs noms de domaine en fonction de votre description"
