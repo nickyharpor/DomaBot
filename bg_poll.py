@@ -1,4 +1,4 @@
-from telethon import TelegramClient
+from telethon.sync import TelegramClient
 from dotenv import load_dotenv
 from mongo import Mongo
 import poll_event_models as pem
