@@ -1,7 +1,6 @@
 from telethon import TelegramClient, events
 import os
 from dotenv import load_dotenv
-import polib
 from mongo import Mongo
 from pymongo.errors import OperationFailure
 import nav

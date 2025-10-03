@@ -3,8 +3,8 @@ from dotenv import load_dotenv
 from mongo import Mongo
 import poll_event_models as pem
 from caller_poll import poll_events, acknowledge_events
+import msg_loader
 import time
-import polib
 import os
 
 
@@ -21,9 +21,7 @@ if __name__ == '__main__':
         import config_test
         config = config_test
 
-    msg = {}
-    for entry in polib.pofile('translations/msg_en.po'):
-        msg[entry.msgid] = entry.msgstr
+    msg = msg_loader.load_translations()
 
     db = Mongo(config.db_host, config.db_port, config.db_name)
 
@@ -32,6 +30,8 @@ if __name__ == '__main__':
                              proxy=(config.proxy_protocol, config.proxy_host, config.proxy_port))
     else:
         bot = TelegramClient(session=config.background_name, api_id=config.api_id, api_hash=config.api_hash)
+
+    bot.start(bot_token=config.tg_bot_token)
 
     event_collection = 'doma_events'
     users_collection = 'telegram_users'
@@ -52,18 +52,18 @@ if __name__ == '__main__':
                         sub_users = db.find(users_collection, {'subscriptions': { "$in": [event.get("name")] }})
                         if sub_users:
                             event_data = pem.parse_event_data(event.get('type'), event.get('eventData'))
-                            if event_data:
-                                notification = (f'{msg.get("new_event_alert")} `{event.get("name")}`\n\n'
-                                                f'{pem.dataclass_to_string(event_data)}')
-                            else:
-                                notification = (f'{msg.get("new_event_alert")} `{event.get("name")}`\n\n'
-                                                f'{msg.get("event")}: `{event.get("type")}`')
                             for u in sub_users:
+                                if event_data:
+                                    notification = (f'{msg.get(u.get("language", "en")).get("new_event_alert")} `{event.get("name")}`\n\n'
+                                                    f'{pem.dataclass_to_string(event_data)}')
+                                else:
+                                    notification = (f'{msg.get(u.get("language", "en")).get("new_event_alert")} `{event.get("name")}`\n\n'
+                                                    f'{msg.get(u.get("language", "en")).get("event")}: `{event.get("type")}`')
                                 bot.send_message(u.get('user_id'), notification)
                     if last_id is not None:
                         acknowledge_events(api_key=config.doma_api_key,
                                            last_event_id=int(last_id))
-                        print("Saved and acknowledged %d events up to id %s.", len(events), last_id)
+                        print(f"Saved and acknowledged {len(events)} events up to id {last_id}.")
                     if has_more:
                         continue
                 else:
@@ -71,9 +71,10 @@ if __name__ == '__main__':
 
                 time.sleep(config.bg_poll_interval_seconds)
             except Exception as e:
-                print("Error during polling cycle: %s", e)
+                print(f"Error during polling cycle: {e}")
                 time.sleep(config.bg_poll_interval_seconds)
     except KeyboardInterrupt:
         print("Poll worker interrupted; shutting down.")
     finally:
         db.close()
+        bot.disconnect()
